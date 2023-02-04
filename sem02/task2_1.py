@@ -4,11 +4,11 @@
 # - 0,56 -> 11
 
 def sumDigits(number):
-    sum = 0
+    summ = 0
     for digit in number:
         if digit != '.' and digit != ',':
-            sum += int(digit)
-    return sum
+            summ += int(digit)
+    return summ
 
 
 num = input('Ведите число: ')
