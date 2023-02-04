@@ -21,5 +21,5 @@ def chkFibonacci(number):
     return -1
 
 
-num = int(input(f'Введите число A > 1: '))
+num = int(input('Введите число A > 1: '))
 print(chkFibonacci(num))
