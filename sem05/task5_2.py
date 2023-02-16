@@ -9,32 +9,60 @@
 from random import randint
 
 
-def move(move_limit, player):
-    step = 0
+def playerTurn(player):
+    turn = 0
     print(f'Игрок {player}, твой ход.')
-    while not 0 < step < move_limit+1:
-        step = int(input(f'Возьми от 1 до {move_limit} конфет: '))
-    return step
+    while not 0 < turn < turn_limit+1:
+        turn = int(input(f'Возьми от 1 до {turn_limit} конфет: '))
+    return turn
+
+
+def botTurn(amt, ai):
+    if ai:
+        d = amt % (turn_limit + 1)  # стратегия победы
+        if d == 0:
+            turn = randint(1, turn_limit)
+        else:
+            turn = d
+    else:
+        turn = randint(1, turn_limit)
+    print(f'Бот взял {turn} конфет.')
+    return turn
+
+
+def game(amt, mode, diff):
+    print('Определяю, за кем первый ход... (Нажмите "Enter")')
+    input()
+    who_turns = randint(0, 1)   # 1 - ходит 1 игрок, 0 - ходит 2 игрок(бот)
+    while amt > turn_limit:
+        print(f'---------------------------------\nНа столе лежат {amt} конфет.')
+        if who_turns:
+            amt -= playerTurn(pl1)
+            who_turns = 0
+        else:
+            if mode:
+                amt -= botTurn(amt, diff)
+            else:
+                amt -= playerTurn(pl2)
+            who_turns = 1
+    return who_turns
 
 
 amount = 2021
-move_limit = 28
+turn_limit = 28
 
+mode = int(input('Выберите режим игры: \n Игрок против игрока (0) \n Игрок против бота (1)\n'))
 pl1 = input('Игрок 1, назовись: ')
-pl2 = input('Игрок 2, назовись: ')
-print('Определяю, за кем первый ход... (Нажмите "Enter")')
-input()
-who_moves = randint(0, 2)   # 1 - ходит 1 игрок, 0 - ходит 2 игрок
-while amount > move_limit:
-    print(f'На столе лежат {amount} конфет.')
-    if who_moves:
-        amount -= move(move_limit, pl1)
-        who_moves = 0
-    else:
-        amount -= move(move_limit, pl2)
-        who_moves = 1
-
-if who_moves:
-    print(f'Осталось {amount} конфет и {pl1} забирает все!')
+if mode:
+    diff = int(input('Выберите сложность: \n (0) - Обычная \n (1) - Невозможная\n'))
+    pl2 = 'Бот'
 else:
-    print(f'Осталось {amount} конфет и {pl1} забирает все!')
+    diff = 0
+    pl2 = input('Игрок 2, назовись: ')
+
+who_win = game(amount, mode, diff)
+
+if who_win:
+    print(f'{pl1} забирает все!')
+else:
+    print(f'{pl2} забирает все!')
