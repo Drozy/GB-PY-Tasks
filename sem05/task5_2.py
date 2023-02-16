@@ -22,7 +22,7 @@ move_limit = 28
 
 pl1 = input('Игрок 1, назовись: ')
 pl2 = input('Игрок 2, назовись: ')
-print('Определяю, за кем первый ход...')
+print('Определяю, за кем первый ход... (Нажмите "Enter")')
 input()
 who_moves = randint(0, 2)   # 1 - ходит 1 игрок, 0 - ходит 2 игрок
 while amount > move_limit:
