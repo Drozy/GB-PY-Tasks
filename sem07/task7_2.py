@@ -18,9 +18,18 @@
 
 
 def print_operation_table(operation, num_rows=6, num_columns=6):
-    for i in range(num_rows):
-        for j in range(num_columns):
-            print(operation(i + 1, j + 1), end='    ')
+    table = [[operation(i + 1, j + 1) for j in range(num_columns)]
+             for i in range(num_rows)]
+    # расчёт максимальной длины колонок
+    max_columns = []
+    for col in zip(*table):
+        len_el = []
+        [len_el.append(len(str(el))) for el in col]
+        max_columns.append(max(len_el))
+    # печать таблицы
+    for row in table:
+        for col in row:
+            print(f'{col:{max(max_columns)+1}}', end=' ')
         print()
     print()
 
