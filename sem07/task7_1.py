@@ -10,3 +10,40 @@
 # пара-ра-рам рам-пам-папам па-ра-па-дам
 # Вывод:
 # Парам пам-пам
+
+
+def inputPoem():
+    try:
+        text = input('Придумайте стихотворение: ')
+    except Exception:
+        print('Что-то не так. Попробуйте ещё раз.')
+    return text
+
+
+def haveRhythm(poem):
+    vovels = ('а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я')
+    phrases = list(poem.split())
+    syllables = []
+    for i in range(len(phrases)):
+        count = 0
+        for char in phrases[i]:
+            if char.lower() in vovels:
+                count += 1
+        syllables.append(count)
+    if min(syllables) == max(syllables):
+        rhythm = True
+    else:
+        rhythm = False
+    return rhythm
+
+
+def main():
+    poem = inputPoem()
+    if haveRhythm(poem):
+        print('Парам пам-пам')
+    else:
+        print('Пам парам')
+
+
+if __name__ == '__main__':
+    main()

@@ -5,7 +5,7 @@
 # почему не с нуля). Примечание: бинарной операцией называется любая операция, у которой
 # ровно два аргумента, как, например, у операции умножения.
 
-# Ввод: 
+# Ввод:
 # print_operation_table(lambda x, y: x * y)
 
 # Вывод:
@@ -16,3 +16,19 @@
 # 5 10 15 20 25 30
 # 6 12 18 24 30 36
 
+
+def print_operation_table(operation, num_rows=6, num_columns=6):
+    for i in range(num_rows):
+        for j in range(num_columns):
+            print(operation(i + 1, j + 1), end='    ')
+        print()
+    print()
+
+
+def main():
+    print_operation_table(lambda x, y: x * y)
+    print_operation_table(lambda x, y: 7 * (x - 1) + y, 5, 7)
+
+
+if __name__ == '__main__':
+    main()
